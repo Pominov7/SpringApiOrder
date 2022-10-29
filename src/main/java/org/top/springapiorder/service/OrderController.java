@@ -42,24 +42,26 @@ public class OrderController {
 
     // UPDATE
     @PutMapping(path = "/update")
-    public @ResponseBody String updateOrder(@RequestBody OrderTEntity orderTEntity) {
+    public void updateOrder(@RequestBody OrderTEntity orderTEntity) {
         Optional<OrderTEntity> orderDb = orderRepository.findById(orderTEntity.getIdF());
         if (orderDb.isPresent()) {
             OrderTEntity order = orderDb.get();
-            if (!orderTEntity.getNameF().isEmpty())
+            if (orderTEntity.getNameF() != null) {
                 order.setNameF(orderTEntity.getNameF());
-            if (!orderTEntity.getEmailF().isEmpty())
+            }
+            if (orderTEntity.getEmailF() != null) {
                 order.setEmailF(orderTEntity.getEmailF());
-            if (!orderTEntity.getPhoneF().isEmpty())
+            }
+            if (orderTEntity.getPhoneF() != null) {
                 order.setPhoneF(orderTEntity.getPhoneF());
-            if (!orderTEntity.getAddressF().isEmpty())
+            }
+            if (orderTEntity.getAddressF() != null) {
                 order.setAddressF(orderTEntity.getAddressF());
+            }
 
             orderRepository.save(order);
         }
-        return "Update";
     }
-
 
     // DELETE
     @PostMapping(path = "/remove")
