@@ -42,7 +42,7 @@ public class OrderController {
 
     // UPDATE
     @PutMapping(path = "/update")
-    public void updateOrder(@RequestBody OrderTEntity orderTEntity) {
+    public @ResponseBody String updateOrder(@RequestBody OrderTEntity orderTEntity) {
         Optional<OrderTEntity> orderDb = orderRepository.findById(orderTEntity.getIdF());
         if (orderDb.isPresent()) {
             OrderTEntity order = orderDb.get();
@@ -61,6 +61,7 @@ public class OrderController {
 
             orderRepository.save(order);
         }
+        return "Update";
     }
 
     // DELETE
